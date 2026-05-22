@@ -1,0 +1,2269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pulse — The Complete Showcase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f8f7f4;
+  --bg-soft: #f1efe9;
+  --ink: #1a1a1a;
+  --ink-soft: #2c2c2c;
+  --muted: #6b6b66;
+  --line: #e5e5e0;
+  --line-soft: #ececea;
+  --paper: #ffffff;
+  --accent: #c0392b;
+  --accent-soft: #fde8e8;
+  --green: #1a6637;
+  --green-soft: #e8f8ef;
+  --gold: #b45309;
+  --gold-soft: #fdf3e8;
+  --blue: #1a56db;
+  --blue-soft: #e8f0fe;
+  --purple: #6d28d9;
+  --purple-soft: #f3e8ff;
+  --display: 'Fraunces', Georgia, serif;
+  --body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--body);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ====== Masthead ====== */
+.masthead {
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+.masthead::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(192,57,43,0.04), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(26,86,55,0.04), transparent 40%);
+  pointer-events: none;
+}
+.masthead-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 1.25rem;
+  position: relative;
+}
+.masthead-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 1.5rem;
+}
+.masthead-top .pulse-mark {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+}
+.pulse-mark-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  position: relative;
+  animation: pulseBeat 2s ease-in-out infinite;
+}
+@keyframes pulseBeat {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+}
+.masthead-title {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(48px, 8vw, 96px);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  font-variation-settings: "opsz" 144;
+}
+.masthead-title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+}
+.masthead-sub {
+  margin-top: 1rem;
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 640px;
+  line-height: 1.5;
+}
+.masthead-meta {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.masthead-meta span { display: flex; align-items: center; gap: 6px; }
+.masthead-meta span::before {
+  content: "";
+  width: 4px; height: 4px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+/* ====== Tab Navigation ====== */
+.tab-nav-wrap {
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.92);
+}
+.tab-nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tab-nav::-webkit-scrollbar { display: none; }
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 1rem 0;
+  font-family: var(--body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+  transition: color 0.2s;
+  letter-spacing: 0.01em;
+}
+.tab-btn:hover { color: var(--ink); }
+.tab-btn.active { color: var(--ink); }
+.tab-btn.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+}
+.tab-btn-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  margin-right: 6px;
+  opacity: 0.6;
+}
+
+/* ====== Main Container ====== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+}
+
+.tab-content { display: none; }
+.tab-content.active {
+  display: block;
+  animation: fadeIn 0.4s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ====== Section Layout ====== */
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.kicker::before {
+  content: "";
+  width: 24px; height: 1px;
+  background: var(--accent);
+}
+
+.section-title {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(32px, 4.5vw, 52px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+  color: var(--ink);
+}
+.section-title em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.section-lede {
+  font-family: var(--display);
+  font-size: 22px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  max-width: 780px;
+  margin-bottom: 3rem;
+  font-weight: 400;
+}
+
+.rule { height: 1px; background: var(--line); margin: 3rem 0; }
+.rule-thick { height: 2px; background: var(--ink); margin: 3rem 0; max-width: 60px; }
+
+h3.subhead {
+  font-family: var(--display);
+  font-size: 26px;
+  font-weight: 500;
+  margin: 2.5rem 0 1rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+h4.minihead {
+  font-family: var(--body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 2rem 0 1rem;
+}
+
+p.body { margin-bottom: 1.2rem; color: var(--ink-soft); font-size: 15px; line-height: 1.7; }
+p.body.large { font-size: 17px; line-height: 1.65; }
+
+/* ====== Pull Quote ====== */
+.pull-quote {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(22px, 3vw, 30px);
+  line-height: 1.35;
+  color: var(--ink);
+  border-left: 3px solid var(--accent);
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  margin: 2rem 0;
+  max-width: 780px;
+}
+.pull-quote-attr {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-style: normal;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.75rem;
+  display: block;
+}
+
+/* ====== Card Grids ====== */
+.grid { display: grid; gap: 1rem; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 900px) { .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.card:hover { border-color: #c8c8c2; }
+
+.stat-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.stat-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 24px; height: 2px;
+  background: var(--accent);
+}
+.stat-num {
+  font-family: var(--display);
+  font-size: clamp(36px, 4vw, 48px);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.stat-label {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+.stat-source {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  margin-top: 12px;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+/* ====== Problem cards ====== */
+.problem-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.75rem;
+  position: relative;
+}
+.problem-num {
+  font-family: var(--display);
+  font-size: 64px;
+  font-weight: 500;
+  line-height: 0.9;
+  color: var(--accent);
+  opacity: 0.18;
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  font-style: italic;
+}
+.problem-title {
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+  position: relative;
+  z-index: 1;
+}
+.problem-body { color: var(--muted); font-size: 14px; line-height: 1.65; }
+
+/* ====== Solution / Promise cards ====== */
+.solution-card {
+  background: var(--green-soft);
+  border: 1px solid #c8e6d4;
+  border-radius: 12px;
+  padding: 1.5rem;
+  position: relative;
+}
+.solution-card .sol-title {
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--green);
+  margin-bottom: 0.5rem;
+}
+.solution-card .sol-body {
+  font-size: 13px;
+  color: #2d4a3a;
+  line-height: 1.6;
+}
+
+/* ====== Metric Cards ====== */
+.metric-tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--bg-soft);
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 1.5rem;
+  width: fit-content;
+}
+.metric-tab {
+  background: none;
+  border: none;
+  padding: 8px 16px;
+  font-family: var(--body);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
+}
+.metric-tab.active {
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.metric-list { display: none; }
+.metric-list.active { display: grid; gap: 12px; }
+
+.metric-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  gap: 1.25rem;
+  align-items: start;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.metric-card:hover { border-color: #c8c8c2; transform: translateY(-1px); }
+
+.metric-id {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--accent);
+  padding-top: 4px;
+  letter-spacing: 0.05em;
+}
+.metric-content { min-width: 0; }
+.metric-name {
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+.metric-desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
+.metric-tags {
+  display: flex;
+  gap: 6px;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.metric-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.metric-tag.survival { background: var(--accent-soft); color: var(--accent); }
+.metric-tag.health { background: var(--gold-soft); color: var(--gold); }
+.metric-tag.decision { background: var(--blue-soft); color: var(--blue); }
+.metric-tag.freq { background: var(--bg-soft); color: var(--muted); }
+
+@media (max-width: 600px) {
+  .metric-card { grid-template-columns: 1fr; }
+  .metric-tags { flex-direction: row; align-items: flex-start; }
+}
+
+/* ====== Persona Cards ====== */
+.persona-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.persona-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent);
+}
+.persona-card.contractor::before { background: var(--gold); }
+.persona-card.agency::before { background: var(--blue); }
+.persona-card.founder::before { background: var(--purple); }
+.persona-card.ecommerce::before { background: var(--green); }
+
+.persona-name {
+  font-family: var(--display);
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.persona-role {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+.persona-stack {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-bottom: 1.25rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg);
+  border-radius: 8px;
+  line-height: 1.55;
+}
+.persona-stack strong { color: var(--ink); font-weight: 600; }
+.persona-watches {
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+.persona-watches-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+  display: block;
+}
+.persona-watches ul { list-style: none; padding: 0; }
+.persona-watches li {
+  padding: 5px 0;
+  border-bottom: 1px dashed var(--line-soft);
+  font-size: 13px;
+}
+.persona-watches li:last-child { border-bottom: none; }
+
+/* ====== Pipeline Phases ====== */
+.pipeline {
+  display: grid;
+  gap: 8px;
+  margin: 2rem 0;
+}
+.phase-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.5rem 1.75rem;
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 1.5rem;
+  position: relative;
+}
+.phase-num {
+  font-family: var(--display);
+  font-size: 56px;
+  font-weight: 500;
+  line-height: 0.9;
+  color: var(--accent);
+  font-style: italic;
+  letter-spacing: -0.02em;
+}
+.phase-content { min-width: 0; }
+.phase-title {
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.5rem;
+}
+.phase-desc { color: var(--muted); font-size: 14px; line-height: 1.6; margin-bottom: 1rem; }
+.phase-io {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  font-size: 12px;
+}
+.phase-io-block {
+  background: var(--bg);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+}
+.phase-io-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.phase-io-text { color: var(--ink-soft); line-height: 1.5; }
+
+@media (max-width: 700px) {
+  .phase-card { grid-template-columns: 1fr; }
+  .phase-num { font-size: 40px; }
+  .phase-io { grid-template-columns: 1fr; }
+}
+
+/* ====== Integration Cards ====== */
+.integration-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 1.5rem;
+}
+.integration-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+.integration-name {
+  font-family: var(--display);
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.integration-role {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.integration-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
+.integration-tag {
+  display: inline-block;
+  margin-top: 8px;
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  background: var(--bg-soft);
+  color: var(--muted);
+  letter-spacing: 0.03em;
+}
+.integration-tag.required { background: var(--accent-soft); color: var(--accent); }
+
+/* ====== Competitive Table ====== */
+.comp-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+}
+table.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.comp-table th, .comp-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--line-soft);
+}
+.comp-table th {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--bg);
+  font-weight: 600;
+}
+.comp-table tr:last-child td { border-bottom: none; }
+.comp-table .feature-name { font-weight: 500; color: var(--ink); }
+.comp-table .pulse-col { background: var(--green-soft); }
+.comp-table .check { color: var(--green); font-weight: 600; }
+.comp-table .cross { color: var(--accent); opacity: 0.6; }
+.comp-table .partial { color: var(--gold); }
+
+/* ====== Promises ====== */
+.promise-list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.promise {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.5rem 1.75rem;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+.promise-icon {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 500;
+}
+.promise-text {
+  font-family: var(--display);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink);
+  font-weight: 400;
+}
+.promise-text strong { font-weight: 600; }
+
+/* ====== Alert Example ====== */
+.alert-example {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+  color: #f0f0ec;
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 2rem 0;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.7;
+  position: relative;
+  overflow: hidden;
+}
+.alert-example::before {
+  content: "ALERT · SMS";
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  background: rgba(192,57,43,0.15);
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+.alert-example p { margin-bottom: 0.75rem; }
+.alert-example .alert-num { color: #ff9580; font-weight: 600; }
+
+/* ====== Vision callout ====== */
+.vision-card {
+  background: var(--ink);
+  color: var(--bg);
+  border-radius: 16px;
+  padding: 3rem 2.5rem;
+  margin: 3rem 0;
+  position: relative;
+  overflow: hidden;
+}
+.vision-card::before {
+  content: "";
+  position: absolute;
+  top: -50%; right: -10%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(192,57,43,0.15), transparent 60%);
+  pointer-events: none;
+}
+.vision-card .kicker { color: var(--accent); }
+.vision-card .kicker::before { background: var(--accent); }
+.vision-card h3 {
+  font-family: var(--display);
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.15;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  max-width: 800px;
+  position: relative;
+}
+.vision-card h3 em { font-style: italic; color: #ff9580; }
+.vision-card p {
+  margin-top: 1.5rem;
+  font-size: 16px;
+  line-height: 1.65;
+  color: #d4d4ce;
+  max-width: 720px;
+  position: relative;
+}
+
+/* ====== Timeline ====== */
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+  margin: 2rem 0;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 7px; top: 8px; bottom: 8px;
+  width: 1px;
+  background: var(--line);
+}
+.timeline-item {
+  position: relative;
+  padding-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -29px; top: 6px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--accent);
+}
+.timeline-phase {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.timeline-title {
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: var(--ink);
+}
+.timeline-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ====== Research Item ====== */
+.research-item {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 12px;
+}
+.research-source {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+.research-date {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+.research-finding {
+  font-family: var(--display);
+  font-size: 17px;
+  line-height: 1.45;
+  margin: 8px 0 12px;
+  color: var(--ink);
+  font-weight: 400;
+}
+.research-quote {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+  border-left: 2px solid var(--line);
+  padding-left: 1rem;
+}
+
+/* ====== Footer ====== */
+.footer {
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+  padding: 3rem 1.5rem 2rem;
+  margin-top: 4rem;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-mark {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 20px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.footer-meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ====== Architectural rule callout ====== */
+.arch-rule {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 2rem 2.5rem;
+  border-radius: 16px;
+  margin: 3rem 0;
+  font-family: var(--display);
+  font-size: 19px;
+  line-height: 1.55;
+  font-weight: 400;
+  position: relative;
+}
+.arch-rule::before {
+  content: "THE ONE RULE";
+  position: absolute;
+  top: 1.25rem;
+  left: 2.5rem;
+  font-family: var(--body);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+}
+.arch-rule p { padding-top: 1.5rem; }
+.arch-rule em { color: #ff9580; font-style: italic; }
+
+/* ====== Small ====== */
+@media (max-width: 700px) {
+  .tab-nav { gap: 1rem; padding: 0 1rem; }
+  .container { padding: 2rem 1rem 4rem; }
+  .masthead-inner { padding: 1.5rem 1rem 1rem; }
+  .vision-card { padding: 2rem 1.5rem; }
+  .arch-rule { padding: 1.5rem; font-size: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== MASTHEAD ===================== -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="masthead-top">
+      <div class="pulse-mark">
+        <span class="pulse-mark-dot"></span>
+        <span>PULSE</span>
+      </div>
+      <span>Product Showcase · Vol. I · 2026</span>
+    </div>
+    <h1 class="masthead-title">
+      The financial<br>
+      heartbeat of <em>every</em><br>
+      small business.
+    </h1>
+    <p class="masthead-sub">
+      A cash flow operating system for Canadian small businesses and startup founders.
+      Built from six months of research, customer discovery, and honest iteration —
+      this is everything Pulse is, everything it does, and everything that's been
+      designed before a single line of production code was written.
+    </p>
+    <div class="masthead-meta">
+      <span>Built in Vancouver</span>
+      <span>Canadian-first by design</span>
+      <span>15 metrics · 6 phases · 10 integrations</span>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== TAB NAVIGATION ===================== -->
+<nav class="tab-nav-wrap">
+  <div class="tab-nav" id="tabNav">
+    <button class="tab-btn active" data-tab="overview"><span class="tab-btn-num">01</span>Overview</button>
+    <button class="tab-btn" data-tab="problem"><span class="tab-btn-num">02</span>The Problem</button>
+    <button class="tab-btn" data-tab="product"><span class="tab-btn-num">03</span>What Pulse Does</button>
+    <button class="tab-btn" data-tab="metrics"><span class="tab-btn-num">04</span>The 15 Metrics</button>
+    <button class="tab-btn" data-tab="customers"><span class="tab-btn-num">05</span>Customers</button>
+    <button class="tab-btn" data-tab="architecture"><span class="tab-btn-num">06</span>How It Works</button>
+    <button class="tab-btn" data-tab="market"><span class="tab-btn-num">07</span>Market</button>
+    <button class="tab-btn" data-tab="competitive"><span class="tab-btn-num">08</span>Competitive</button>
+    <button class="tab-btn" data-tab="promises"><span class="tab-btn-num">09</span>Promises</button>
+    <button class="tab-btn" data-tab="team"><span class="tab-btn-num">10</span>Team &amp; Vision</button>
+  </div>
+</nav>
+
+<main class="container">
+
+  <!-- ============= TAB 1: OVERVIEW ============= -->
+  <section class="tab-content active" id="tab-overview">
+    <div class="kicker">The Foundation</div>
+    <h2 class="section-title">Every small business owner makes the most important financial decisions of their life — <em>without any of the data they need.</em></h2>
+    <p class="section-lede">
+      This is not a technology problem. There is no shortage of accounting software. The problem is that every existing tool is built to record what happened, not to tell you what's about to happen and what to do about it. A full-time CFO would do that work. A full-time CFO costs $200,000 a year. The 33 million small businesses in North America under $5M in revenue cannot afford one. They are flying blind on decisions that determine whether their businesses survive.
+    </p>
+
+    <div class="grid grid-4" style="margin-bottom: 2rem;">
+      <div class="stat-card">
+        <div class="stat-num">82%</div>
+        <div class="stat-label">of small business failures caused by cash flow problems</div>
+        <div class="stat-source">SBA / PYMNTS · 2026</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">22,027</div>
+        <div class="stat-label">Canadian corporate insolvencies in Jan–Nov 2025, up 10% YoY</div>
+        <div class="stat-source">Statistics Canada · 2026</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">43%</div>
+        <div class="stat-label">of organisations still rely primarily on spreadsheets for cash forecasting</div>
+        <div class="stat-source">AFP / Centime · 2026</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">1.08M</div>
+        <div class="stat-label">small businesses in Canada employing 5.8M people — none with CFO-level intelligence</div>
+        <div class="stat-source">StatCan · Dec 2024</div>
+      </div>
+    </div>
+
+    <div class="vision-card">
+      <div class="kicker">What Pulse Is</div>
+      <h3>Pulse is a cash flow operating system. It connects to the tools owners already use — bank, accounting, payroll. It rebuilds the 90-day forecast every night from live data. And every Tuesday and Thursday at 8am, it sends a plain-English message — by SMS or email — with exactly what matters and exactly what to do. <em>No login. No dashboard. The intelligence finds you.</em></h3>
+      <p>Built in Vancouver. Built for Canadian businesses. Built by a founder who spent six months sitting across from business owners asking them to describe their worst financial moments — and then designed a product that prevents every single one of them.</p>
+    </div>
+
+    <div class="rule"></div>
+
+    <div class="grid grid-3">
+      <div class="card">
+        <h4 class="minihead" style="margin-top:0; color: var(--accent);">Foundation</h4>
+        <p class="body" style="font-size: 14px;">The intelligence layer — proactive alerts, anomaly detection, plain-language Q&amp;A. The financial heartbeat, always visible, always current, always interpreted.</p>
+      </div>
+      <div class="card">
+        <h4 class="minihead" style="margin-top:0; color: var(--gold);">Intelligence then Execution</h4>
+        <p class="body" style="font-size: 14px;">An alert that tells you what to do is good. An alert that lets you do it in one tap is what makes the product sticky. Execution converts intelligence into retention.</p>
+      </div>
+      <div class="card">
+        <h4 class="minihead" style="margin-top:0; color: var(--blue);">Vertical Depth Over Horizontal Breadth</h4>
+        <p class="body" style="font-size: 14px;">A restaurant-specific product that knows food cost %, covers per hour, and labor % benchmarks is 10x more valuable than a generic financial tool. Vertical depth is the moat.</p>
+      </div>
+    </div>
+
+    <div class="arch-rule">
+      <p>Deterministic Python math handles all financial calculations. Claude handles only language. These two responsibilities <em>never overlap</em>. A number that appears in any alert was computed by the Python model before Claude ever saw it. The LLM is the voice. The math is the brain. They are separated by design.</p>
+    </div>
+  </section>
+
+  <!-- ============= TAB 2: THE PROBLEM ============= -->
+  <section class="tab-content" id="tab-problem">
+    <div class="kicker">Section II</div>
+    <h2 class="section-title">The problem, in full.</h2>
+    <p class="section-lede">
+      These are not abstract market problems. They are the specific, documented, daily experiences of the people Pulse is built for. Each one is a failure mode the existing market has not solved.
+    </p>
+
+    <div class="grid grid-2">
+      <div class="problem-card">
+        <div class="problem-num">1</div>
+        <div class="problem-title">The cash gap arrives without warning</div>
+        <p class="problem-body">A restaurant owner checks her bank account on Friday and realises payroll runs in four days — and she does not have enough cash to cover it. She has been watching QuickBooks for months. QuickBooks showed her last month's numbers. It showed her nothing about next week. The gap between "what happened last month" and "what will happen in 14 days" is where businesses die. Not from lack of revenue. From lack of timing.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-num">2</div>
+        <div class="problem-title">Profitable on paper, out of cash on Tuesday</div>
+        <p class="problem-body">A restaurant does $80,000 in sales in March. Expenses are $72,000. The accountant confirms $8,000 profit. But a large catering invoice has not been collected. Payroll is in three days. The business is profitable and about to miss payroll. This phenomenon kills the best-run small businesses in Canada every quarter. It is not a management failure. It is an information failure.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-num">3</div>
+        <div class="problem-title">The GST/HST surprise</div>
+        <p class="problem-body">Unlike income tax, GST/HST is collected continuously on every sale but must be remitted quarterly in a lump sum. Tens of thousands of Canadian businesses receive the remittance notice and discover they owe money they have not set aside. There is no financial tool at the SMB level in Canada that proactively tracks accumulated GST/HST obligations. Not one competitor.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-num">4</div>
+        <div class="problem-title">Late payments getting worse</div>
+        <p class="problem-body">Xero's February 2025 data showed Canadian businesses waiting 7.6+ additional days beyond terms. CFIB reports cite late payments as the #1 cash flow stressor for Canadian SMBs. The agency owner with $87,000 in outstanding invoices who does not know which clients are slow — this is the documented daily reality for hundreds of thousands of Canadian businesses.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-num">5</div>
+        <div class="problem-title">No early warning, no time to act</div>
+        <p class="problem-body">Float's 2025 Canada report found collateral requirements surged 43% year-over-year. Access-to-capital concerns hit 29% of small businesses. As credit gets harder, managing existing cash perfectly matters more. A business that knows about a cash gap 16 days in advance can act. A business that discovers it on payroll day cannot borrow their way out in 24 hours at reasonable rates.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-num">6</div>
+        <div class="problem-title">Dashboards require effort owners don't have</div>
+        <p class="problem-body">Dashboards exist — Float, Dryrun, others. But they require the owner to remember to open them, navigate to the right screen, and interpret what they see. A restaurant owner working 70 hours a week does not check financial dashboards. The product has to come to the owner. Not the other way around. Fractional CFOs cost $2,000–$5,000/month — out of reach for the 33M businesses that need them most.</p>
+      </div>
+    </div>
+
+    <h3 class="subhead" style="margin-top: 3rem;">The owner's wishlist — what they actually asked for</h3>
+    <p class="body">After six months of customer interviews, the same wishlist surfaced again and again:</p>
+
+    <div class="grid grid-3">
+      <div class="solution-card">
+        <div class="sol-title">Predict, don't record</div>
+        <div class="sol-body">Something that told them what was about to happen, not what had already happened.</div>
+      </div>
+      <div class="solution-card">
+        <div class="sol-title">Detect early enough to act</div>
+        <div class="sol-body">A system that surfaced problems with enough lead time to actually do something about them.</div>
+      </div>
+      <div class="solution-card">
+        <div class="sol-title">Come to them</div>
+        <div class="sol-body">Something that arrived on their phone — not a dashboard they had to remember to check.</div>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      Small businesses are the backbone of Canada's economy — they employ more Canadians than all medium and large businesses combined, yet they have no CFO-level financial intelligence.
+      <span class="pull-quote-attr">Statistics Canada · Key Small Business Statistics · Dec 2024</span>
+    </div>
+  </section>
+
+  <!-- ============= TAB 3: WHAT PULSE DOES ============= -->
+  <section class="tab-content" id="tab-product">
+    <div class="kicker">Section III</div>
+    <h2 class="section-title">What Pulse does — <em>in plain language.</em></h2>
+    <p class="section-lede">
+      Every other financial tool waits for you to come to it. Pulse comes to you. This is not a small design decision. It is the entire product philosophy.
+    </p>
+
+    <div class="alert-example">
+      <p style="font-size: 11px; letter-spacing: 0.1em; color: #ff9580; margin-bottom: 1rem;">▼ EXAMPLE ALERT · TUESDAY 8:00 AM</p>
+      <p>Hi Maria —</p>
+      <p>Cash shortfall of <span class="alert-num">$14,200</span> arriving <span class="alert-num">March 15</span>, in <span class="alert-num">16 days</span>.</p>
+      <p>Cause: payroll of <span class="alert-num">$18,400</span> on March 15. Current balance: <span class="alert-num">$24,300</span>.</p>
+      <p style="margin-top:1.25rem; color: #b0b0a8;">Three options:</p>
+      <p>→ Collect overdue invoice <span class="alert-num">#312</span> from Miller &amp; Sons — <span class="alert-num">$9,800</span> · 19 days overdue [Tap to send reminder]</p>
+      <p>→ Draw <span class="alert-num">$10,000</span> from credit line (<span class="alert-num">$25,000</span> available)</p>
+      <p>→ Delay freezer purchase — <span class="alert-num">$6,200</span></p>
+      <p style="margin-top:1rem; font-size: 11px; color: #888;">For information only — not financial advice.</p>
+    </div>
+
+    <h3 class="subhead">The six-step engagement model</h3>
+    <p class="body">From bank connection to your phone — what Pulse actually does, end to end.</p>
+
+    <div class="pipeline">
+      <div class="phase-card">
+        <div class="phase-num">01</div>
+        <div class="phase-content">
+          <div class="phase-title">Data ingestion</div>
+          <div class="phase-desc">Pulse pulls fresh data nightly from your bank (Plaid), accounting (QB/Xero), payroll (ADP/QB Payroll/Gusto), and any POS or payment connections. Everything is normalised into a common schema. Errors, retries, and token refreshes are handled in the background.</div>
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">02</div>
+        <div class="phase-content">
+          <div class="phase-title">Categorisation</div>
+          <div class="phase-desc">Every transaction is tagged: payroll, rent, food cost, vendor, revenue, tax, software, equipment, owner draw. A three-layer system handles it — known merchants (40%, deterministic), Plaid ML (30%), and Claude fallback (30%) for ambiguous merchants.</div>
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">03</div>
+        <div class="phase-content">
+          <div class="phase-title">Forecast construction</div>
+          <div class="phase-desc">The core of the product. Pure Python — no AI. Deterministic arithmetic builds a 90-day projection: starting balance + every expected inflow (invoices, payouts, recurring revenue) − every expected outflow (bills, payroll, fixed costs). Each day has a confidence interval.</div>
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">04</div>
+        <div class="phase-content">
+          <div class="phase-title">Detection</div>
+          <div class="phase-desc">The forecast is scanned for the 15 metrics. Survival metrics check for hard breaches. Health metrics run z-score anomaly detection against the business's own 12-week history. Every triggered signal is scored for urgency.</div>
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">05</div>
+        <div class="phase-content">
+          <div class="phase-title">Translation &amp; validation</div>
+          <div class="phase-desc">Top 2 signals are converted into structured JSON objects with all numbers pre-computed. Claude rewrites them into plain English. Then output validation runs: every dollar amount in Claude's response must match a number from the input JSON. If not, retry. No hallucinated number ever reaches you.</div>
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">06</div>
+        <div class="phase-content">
+          <div class="phase-title">Delivery</div>
+          <div class="phase-desc">Alerts arrive on your phone at 8am Tuesday and Thursday via SMS or email. Urgent signals (payroll risk within 7 days, cash gap within 7 days) fire immediately. Maximum two alerts per week — owner who receives seven ignores all of them.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rule"></div>
+
+    <h3 class="subhead">First 30 days with Pulse</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-phase">Days 1–7</div>
+        <div class="timeline-title">Pulse learns your patterns</div>
+        <div class="timeline-desc">Pulse ingests up to 24 months of transaction history. The categorisation model maps your vendors. Per-client payment history is built. Your seasonal revenue baseline begins to take shape. Alerts during this period are labeled "early estimate."</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-phase">Days 8–30</div>
+        <div class="timeline-title">Your first alerts</div>
+        <div class="timeline-desc">By week 2, most customers receive their first useful alerts — payroll coverage, vendor anomalies, slow client signals. Forecasts begin labeled "preliminary" and shift to full confidence by day 30.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-phase">Day 30+</div>
+        <div class="timeline-title">Full confidence mode</div>
+        <div class="timeline-desc">Cash gap predictions become highly accurate. Anomaly detection has enough history to distinguish your noise from a real signal. Q&amp;A scenarios use your specific patterns. This is when Pulse becomes irreplaceable.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============= TAB 4: METRICS ============= -->
+  <section class="tab-content" id="tab-metrics">
+    <div class="kicker">The 15 Metrics</div>
+    <h2 class="section-title">Every signal Pulse watches — <em>and what it does about each one.</em></h2>
+    <p class="section-lede">
+      Three categories. Survival metrics fire immediately. Health metrics catch problems weekly with z-score anomaly detection. Decision metrics run on-demand when you ask a question.
+    </p>
+
+    <div class="metric-tabs">
+      <button class="metric-tab active" data-metric-group="survival">Survival · M01–03</button>
+      <button class="metric-tab" data-metric-group="health">Health · M04–10</button>
+      <button class="metric-tab" data-metric-group="decision">Decision · M11–15</button>
+    </div>
+
+    <div class="metric-list active" id="metrics-survival">
+      <div class="metric-card">
+        <div class="metric-id">M-01</div>
+        <div class="metric-content">
+          <div class="metric-name">Projected Cash Gap Date &amp; Amount</div>
+          <div class="metric-desc">The most important number in the product. The exact day in the next 90 when projected balance falls below threshold, and by how much. Alerts 14–21 days before the gap. Re-fires if gap moves earlier by &gt;3 days or worsens by &gt;10%.</div>
+        </div>
+        <div class="metric-tags">
+          <span class="metric-tag survival">Survival</span>
+          <span class="metric-tag freq">Nightly</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-id">M-02</div>
+        <div class="metric-content">
+          <div class="metric-name">Payroll Coverage Ratio</div>
+          <div class="metric-desc">Can you make your next payroll? Checked for every scheduled run in the next 90 days. Fires immediately if projected balance on payroll day falls below 100% of what is owed. Two-quarter missed payroll → 8–10% workforce shrinkage on average.</div>
+        </div>
+        <div class="metric-tags">
+          <span class="metric-tag survival">Survival</span>
+          <span class="metric-tag freq">Nightly</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-id">M-03</div>
+        <div class="metric-content">
+          <div class="metric-name">GST/HST Reserve Gap</div>
+          <div class="metric-desc">Canada-specific. Tracks accumulated GST/HST obligation this quarter and what's actually set aside. Tells you exactly how much to move per week to avoid the quarterly surprise. <strong>No other product does this at the Canadian SMB level.</strong></div>
+        </div>
+        <div class="metric-tags">
+          <span class="metric-tag survival">Survival</span>
+          <span class="metric-tag freq">Weekly</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="metric-list" id="metrics-health">
+      <div class="metric-card">
+        <div class="metric-id">M-04</div>
+        <div class="metric-content">
+          <div class="metric-name">Gross Margin %</div>
+          <div class="metric-desc">Revenue minus cost of goods sold. Alerts when your margin drops significantly below your own 12-week average — not a generic industry benchmark. Your business, your noise floor.</div>
+        </div>
+        <div class="metric-tags">
+          <span class="metric-tag health">Health</span>
+          <span class="metric-tag freq">Weekly</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-id">M-05</div>
+        <div class="metric-content">
+          <div class="metric-name">Food Cost %</div>
+          <div class="metric-desc">Restaurant-specific. The most important weekly metric for any food business. Alerts within 7 days of a significant spike — not 30 days later at month-end accounting. Powered by Toast xtraCHEF data.</div>
+        </div>
+        <div class="metric-tags">
+          <span class="metric-tag health">Health</span>
+          <span class="metric-tag freq">Weekly</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-id">M-06</div>
+        <div class="metric-content">
+          <div class="metric-name">Labor Cost %</div>
+          <div class="metric-desc">Total payroll as a percentage of revenue. Catches slow creep — an extra shift here, a new hire there — before it compounds into a margin problem.</div>
+        </div>
+        <div class="metric-tags">
+          <span class="metric-tag health">Health</span>
+          <span class="metric-tag freq">Weekly</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-id">M-07</div>
+        <div class="metric-content">
+          <div class="metric-name">Receivables DSO</div>
+          <div class="metric-desc">Days Sales Outstanding — how many days on average you're waiting to collect. An agency going from 38 to 52 days DSO loses $5,741 per year in cost of capital. That number never appears in any financial statement. Pulse surfaces it.</div>
+        </div>
+        <div class="metric-tags">
+          <span class="metric-tag health">Health</span>
+          <span class="metric-tag freq">Weekly</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-id">M-08</div>
+        <div class="metric-content">
+          <div class="metric-name">Per-Client Payment Delay</div>
+          <div class="metric-desc">Compares each client's current behaviour against their own historical pattern. A client who always pays in 12 days going silent at 35 days is a signal. A client who always pays 30 days late currently at 32 days is normal. Pulse knows the difference.</div>
+        </div>
+        <div class="metric-tags">
+          <span class="metric-tag health">Health</span>
+          <span class="metric-tag freq">Nightly</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-id">M-09</div>
+        <div class="metric-content">
+          <div class="metric-name">Vendor Spend Anomaly</div>
+          <div class="metric-desc">Tracks every vendor's charges against their 12-week history. Catches billing errors, unexpected price increases, and duplicate invoices automatically — before they compound.</div>
+        </div>
+        <div class="metric-tags">
+          <span class="metric-tag health">Health</span>
+          <span class="metric-tag freq">Weekly</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-id">M-10</div>
+        <div class="metric-content">
+          <div class="metric-name">Weekly Revenue Trend</div>
+          <div class="metric-desc">Your revenue this week compared to what is seasonally normal for your business at this time of year. A slow January that's normal for your business is not an alert. A slow January that's slow even by your January standards is.</div>
+        </div>
+        <div class="metric-tags">
+          <span class="metric-tag health">Health</span>
+          <span class="metric-tag freq">Weekly</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="metric-list" id="metrics-decision">
+      <div class="metric-card">
+        <div class="metric-id">M-11</div>
+        <div class="metric-content">
+          <div class="metric-name">Hire Affordability</div>
+          <div class="metric-desc">"Can I hire at $55,000 starting in April?" Pulse reruns your 90-day model with the hire cost added and tells you: yes on April 1, no in January (your cash drops to −$6,400), and the earliest safe start date.</div>
+        </div>
+        <div class="metric-tags">
+          <span class="metric-tag decision">Decision</span>
+          <span class="metric-tag freq">On-demand</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-id">M-12</div>
+        <div class="metric-content">
+          <div class="metric-name">Project Float Analysis</div>
+          <div class="metric-desc">"Can I take the Riverside job that needs $140K in materials upfront?" Contractor-specific. Models the full project: materials outflow now, progress payments at milestones, final payment at end. Tells you the cash trough and when it hits.</div>
+        </div>
+        <div class="metric-tags">
+          <span class="metric-tag decision">Decision</span>
+          <span class="metric-tag freq">On-demand</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-id">M-13</div>
+        <div class="metric-content">
+          <div class="metric-name">Runway (Founder Mode)</div>
+          <div class="metric-desc">For pre-revenue and pre-seed founders. Months of runway from current cash at current burn rate. Updated every night from your live bank balance. Never from a stale spreadsheet. Burn rate change alerts when a new hire shifts your trajectory.</div>
+        </div>
+        <div class="metric-tags">
+          <span class="metric-tag decision">Decision</span>
+          <span class="metric-tag freq">Nightly</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-id">M-14</div>
+        <div class="metric-content">
+          <div class="metric-name">Break-Even</div>
+          <div class="metric-desc">The exact revenue needed to cover fixed costs this month. Returns the specific number, the current safety margin, and the components driving it. Also on-demand: "What revenue do I need to break even this month?"</div>
+        </div>
+        <div class="metric-tags">
+          <span class="metric-tag decision">Decision</span>
+          <span class="metric-tag freq">Monthly</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-id">M-15</div>
+        <div class="metric-content">
+          <div class="metric-name">Expansion Readiness Score</div>
+          <div class="metric-desc">A single 0–100 score synthesising all 14 preceding metrics. Is this business ready for a bank loan, investor conversation, or expansion — and if not, what specifically needs fixing first, in what order? Weighted: DSO 20%, margin 20%, payroll coverage 20%, runway 20%, GST 10%, data quality 10%.</div>
+        </div>
+        <div class="metric-tags">
+          <span class="metric-tag decision">Decision</span>
+          <span class="metric-tag freq">Monthly</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pull-quote" style="margin-top: 3rem;">
+      Every metric is defined. Every threshold is specific. Every edge case has a handling rule. The engineer can build Phase 3 and Phase 4 without asking another question.
+      <span class="pull-quote-attr">Pulse Metrics Specification · 2026</span>
+    </div>
+  </section>
+
+  <!-- ============= TAB 5: CUSTOMERS ============= -->
+  <section class="tab-content" id="tab-customers">
+    <div class="kicker">Section V</div>
+    <h2 class="section-title">Four customer types. <em>One product that adapts to each.</em></h2>
+    <p class="section-lede">
+      Pulse is not a generic financial tool. The same intelligence engine serves four different customer types with completely different metrics, completely different language, and completely different alert content.
+    </p>
+
+    <div class="grid grid-2">
+      <div class="persona-card">
+        <div class="persona-name">Maria</div>
+        <div class="persona-role">Restaurant Owner · Vancouver</div>
+        <div class="persona-stack">
+          <strong>Business:</strong> Full-service restaurant, 14 employees, cash float $20K–$35K.<br>
+          <strong>Stack:</strong> QuickBooks + Toast POS + ADP Run + Plaid
+        </div>
+        <div class="persona-watches">
+          <span class="persona-watches-label">What Pulse watches for her</span>
+          <ul>
+            <li>Food cost % vs 12-week average — 7-day alerts</li>
+            <li>Labor % vs revenue — catches over-staffing</li>
+            <li>Cash gap before payroll — 16-day warning</li>
+            <li>Per-client delay for catering accounts</li>
+            <li>Vendor anomalies (produce supplier errors)</li>
+            <li>GST reserve — moves $525/week so Q2 isn't a surprise</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="persona-card contractor">
+        <div class="persona-name">James</div>
+        <div class="persona-role">General Contractor · Burnaby</div>
+        <div class="persona-stack">
+          <strong>Business:</strong> Residential renovation, 8 employees, project-based revenue (lumpy).<br>
+          <strong>Stack:</strong> QuickBooks + Square + ADP Run + Plaid
+        </div>
+        <div class="persona-watches">
+          <span class="persona-watches-label">What Pulse watches for him</span>
+          <ul>
+            <li>Project float — "Can I take the $600K job with $140K upfront?"</li>
+            <li>Payroll coverage for each of next 8 payroll runs</li>
+            <li>Vendor anomalies for materials suppliers</li>
+            <li>Revenue trend when between projects</li>
+            <li>Cash gap during the float period between project start and first client payment</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="persona-card agency">
+        <div class="persona-name">Sarah</div>
+        <div class="persona-role">Agency Owner &amp; Startup Founder</div>
+        <div class="persona-stack">
+          <strong>Business:</strong> Vancouver creative agency + pre-seed SaaS startup. Runs both simultaneously.<br>
+          <strong>Stack:</strong> QuickBooks + Stripe + QB Payroll + Plaid
+        </div>
+        <div class="persona-watches">
+          <span class="persona-watches-label">What Pulse watches for her</span>
+          <ul>
+            <li>Receivables DSO — $87K in outstanding invoices</li>
+            <li>Runway countdown for her startup, always current</li>
+            <li>Burn rate change alerts when expenses shift</li>
+            <li><strong>The crossover view:</strong> agency cash flow + startup runway in one product, one toggle</li>
+            <li>The customer no competitor serves</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="persona-card founder">
+        <div class="persona-name">Amir</div>
+        <div class="persona-role">Pre-Seed Startup Founder · UBC</div>
+        <div class="persona-stack">
+          <strong>Business:</strong> SaaS startup, $180K raised, burn ~$18K/month.<br>
+          <strong>Stack:</strong> QuickBooks + Stripe + Gusto + Plaid
+        </div>
+        <div class="persona-watches">
+          <span class="persona-watches-label">What Pulse watches for him</span>
+          <ul>
+            <li>Runway countdown — updated nightly from live bank balance</li>
+            <li>Burn rate change alerts — new hires immediately flagged</li>
+            <li>Fundraising readiness score — specific issues investors will raise, prioritised</li>
+            <li>Investor-ready financial summary — one tap, always current</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="subhead" style="margin-top: 3rem;">The connection foundation — what every customer connects</h3>
+    <p class="body">Every single customer must connect Plaid (bank) and at least one accounting platform (QuickBooks or Xero). These two are the non-negotiable foundation. Plaid provides the live bank balance. QB/Xero provides invoice and bill data that makes forecasts specific. Everything else is optional and adds depth.</p>
+
+    <div class="integration-grid">
+      <div class="integration-card">
+        <div class="integration-name">Plaid</div>
+        <div class="integration-role">Bank connection</div>
+        <div class="integration-desc">Live balance, transactions, deposit confirmation. The starting point of every forecast.</div>
+        <span class="integration-tag required">Required · All customers</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-name">QuickBooks / Xero</div>
+        <div class="integration-role">Accounting</div>
+        <div class="integration-desc">Invoices, bills, chart of accounts. Makes forecasts specific rather than generic.</div>
+        <span class="integration-tag required">Required · All customers</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-name">ADP Run</div>
+        <div class="integration-role">Payroll · Canadian</div>
+        <div class="integration-desc">Canadian payroll dominant choice. Exact payroll dates and amounts feed outflow schedule.</div>
+        <span class="integration-tag">If applicable</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-name">Gusto / QB Payroll</div>
+        <div class="integration-role">Payroll · US / Alt</div>
+        <div class="integration-desc">US founders and Canadian alt for ADP. Same downstream payroll data.</div>
+        <span class="integration-tag">If applicable</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-name">Toast POS</div>
+        <div class="integration-role">Restaurant POS</div>
+        <div class="integration-desc">Daily revenue, food cost %, covers per shift, labor hours. Unlocks restaurant-specific intelligence.</div>
+        <span class="integration-tag">Optional · Restaurants</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-name">Square</div>
+        <div class="integration-role">POS / Card Payments</div>
+        <div class="integration-desc">Strong Canadian coverage. Quick-service restaurants and contractors taking card payments on-site.</div>
+        <span class="integration-tag">Optional</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-name">Stripe</div>
+        <div class="integration-role">Online Payments</div>
+        <div class="integration-desc">Agencies and e-commerce. MRR/churn for founders. Confirmed payout arrival dates.</div>
+        <span class="integration-tag">Optional · Agencies/SaaS</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-name">Shopify</div>
+        <div class="integration-role">E-commerce · Phase 2</div>
+        <div class="integration-desc">Product-level revenue, COGS per SKU, inventory levels. Canadian company.</div>
+        <span class="integration-tag">Optional · E-commerce</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-name">Twilio</div>
+        <div class="integration-role">SMS Delivery</div>
+        <div class="integration-desc">Canadian A2P 10DLC registered. Local Canadian numbers. Fallback to email if SMS fails.</div>
+        <span class="integration-tag">Internal</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-name">SendGrid</div>
+        <div class="integration-role">Email Delivery</div>
+        <div class="integration-desc">SPF + DKIM configured day one. Dedicated IP pool. Deliverability monitoring.</div>
+        <span class="integration-tag">Internal</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============= TAB 6: ARCHITECTURE ============= -->
+  <section class="tab-content" id="tab-architecture">
+    <div class="kicker">Technical Specification</div>
+    <h2 class="section-title">How Pulse actually works — <em>under the hood.</em></h2>
+    <p class="section-lede">
+      A complete six-phase nightly pipeline, 14 PostgreSQL tables, 10 external integrations, and one architectural rule that protects every owner who uses the product.
+    </p>
+
+    <div class="arch-rule">
+      <p>Deterministic Python math handles all financial calculations. The LLM (Claude) handles only natural language. These two responsibilities <em>never overlap</em>. A number that appears in any alert was computed by the Python model before the LLM ever saw it. The LLM receives a structured JSON object. It writes sentences from those numbers. It cannot invent numbers it was not given. <em>This is the core safety guarantee of the entire product.</em></p>
+    </div>
+
+    <h3 class="subhead">The nightly pipeline — six phases, every business, 2–4am</h3>
+    <p class="body">The pipeline runs every night between 2am and 4am Vancouver time for every active business. Six sequential phases. Each reads from the database and writes back. If any phase fails for a specific business, that business is marked failed and engineering is paged. Other businesses continue unaffected.</p>
+
+    <div class="pipeline">
+      <div class="phase-card">
+        <div class="phase-num">P1</div>
+        <div class="phase-content">
+          <div class="phase-title">Data ingestion</div>
+          <div class="phase-desc">Python + AWS Lambda, scheduled 2:00 AM. Fires API calls to Plaid, QB/Xero, ADP/Gusto/QB Payroll, Square/Toast, Stripe/Shopify. Normalises responses into common schema.</div>
+          <div class="phase-io">
+            <div class="phase-io-block">
+              <div class="phase-io-label">Input</div>
+              <div class="phase-io-text">Raw API responses from external services</div>
+            </div>
+            <div class="phase-io-block">
+              <div class="phase-io-label">Output</div>
+              <div class="phase-io-text">Clean records in PostgreSQL: transactions, invoices, bills, payroll_runs, daily_balances</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-num">P2</div>
+        <div class="phase-content">
+          <div class="phase-title">Categorisation</div>
+          <div class="phase-desc">Three-layer classification: (1) Rules engine for known merchants — 40%, zero latency. (2) Plaid ML category mapping — 30%. (3) Claude fallback for ambiguous — 30%, ~85% first-pass accuracy. User corrections feed rules engine.</div>
+          <div class="phase-io">
+            <div class="phase-io-block">
+              <div class="phase-io-label">Input</div>
+              <div class="phase-io-text">Raw transactions table</div>
+            </div>
+            <div class="phase-io-block">
+              <div class="phase-io-label">Output</div>
+              <div class="phase-io-text">Each transaction tagged with category, confidence, is_fixed_cost, is_recurring</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-num">P3</div>
+        <div class="phase-content">
+          <div class="phase-title">Financial model — 90-day forecast</div>
+          <div class="phase-desc">The core of the product. Pure Python + NumPy. No AI. Deterministic. Validated against 6 months historical data before production. Builds: <code>projected_balance[day] = current_balance + Σ(inflows[1..day]) − Σ(outflows[1..day])</code></div>
+          <div class="phase-io">
+            <div class="phase-io-block">
+              <div class="phase-io-label">Input</div>
+              <div class="phase-io-text">Categorised transactions, open invoices, outstanding bills, payroll schedule, bank balance</div>
+            </div>
+            <div class="phase-io-block">
+              <div class="phase-io-label">Output</div>
+              <div class="phase-io-text">daily_forecast[1..90]: projected balance + confidence interval per day</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-num">P4</div>
+        <div class="phase-content">
+          <div class="phase-title">Detection</div>
+          <div class="phase-desc">Scans the 90-day forecast for all 15 metrics. Survival: hard threshold breach. Health: z-score against business's own 12-week history. Each triggered signal becomes a structured object with severity, urgency, evidence, and resolution options.</div>
+          <div class="phase-io">
+            <div class="phase-io-block">
+              <div class="phase-io-label">Input</div>
+              <div class="phase-io-text">90-day forecast + categorised transaction history</div>
+            </div>
+            <div class="phase-io-block">
+              <div class="phase-io-label">Output</div>
+              <div class="phase-io-text">Ranked signal objects, top 2 selected for delivery</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-num">P5</div>
+        <div class="phase-content">
+          <div class="phase-title">Translation &amp; delivery</div>
+          <div class="phase-desc">Constructs JSON alert objects with all numbers pre-computed. Claude rewrites as plain English. Output validation: every dollar amount in Claude's response must match an input number (±$50 tolerance). If validation fails, retry. Twilio or SendGrid sends.</div>
+          <div class="phase-io">
+            <div class="phase-io-block">
+              <div class="phase-io-label">Input</div>
+              <div class="phase-io-text">Top 2 scored signal objects</div>
+            </div>
+            <div class="phase-io-block">
+              <div class="phase-io-label">Output</div>
+              <div class="phase-io-text">Delivered alerts on owner's phone by 8am Tuesday and Thursday</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-num">P6</div>
+        <div class="phase-content">
+          <div class="phase-title">On-demand Q&amp;A</div>
+          <div class="phase-desc">Triggered by an owner asking a question in the app. Sub-5-second response. Three-step: Claude #1 parses intent → Python scenario engine re-runs Phase 3 with modifications → Claude #2 writes the answer from pre-computed numbers. Same output validation as P5.</div>
+          <div class="phase-io">
+            <div class="phase-io-block">
+              <div class="phase-io-label">Input</div>
+              <div class="phase-io-text">Owner's natural language question</div>
+            </div>
+            <div class="phase-io-block">
+              <div class="phase-io-label">Output</div>
+              <div class="phase-io-text">Plain-English answer with specific dates and amounts</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rule"></div>
+
+    <h3 class="subhead">The tech stack — every layer</h3>
+    <div class="integration-grid">
+      <div class="integration-card">
+        <div class="integration-name">React Native + Expo</div>
+        <div class="integration-role">Mobile · iOS + Android</div>
+        <div class="integration-desc">Single codebase. Push notifications via Expo + APNs/FCM. Deep links for one-tap invoice actions.</div>
+        <span class="integration-tag required">P1</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-name">Python + FastAPI</div>
+        <div class="integration-role">API Server</div>
+        <div class="integration-desc">Python 3.11, async. REST endpoints for mobile + webhook receivers for Plaid, QB, Stripe.</div>
+        <span class="integration-tag required">P0</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-name">Celery + Redis</div>
+        <div class="integration-role">Background Jobs</div>
+        <div class="integration-desc">Nightly pipeline, staggered 2–4am. Retry logic on all external API calls. Priority queues.</div>
+        <span class="integration-tag required">P0</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-name">Python + NumPy</div>
+        <div class="integration-role">Financial Model</div>
+        <div class="integration-desc">Pure Python arithmetic. No ML frameworks. Unit-tested against 6 months historical data.</div>
+        <span class="integration-tag required">P0</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-name">Claude Sonnet 4.5</div>
+        <div class="integration-role">LLM · Language only</div>
+        <div class="integration-desc">100K tokens/min rate limit. Output validation on every response. Retry on failure.</div>
+        <span class="integration-tag required">P0</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-name">PostgreSQL 16</div>
+        <div class="integration-role">Primary DB</div>
+        <div class="integration-desc">AWS RDS Canada (Montreal). Multi-AZ. Automated backups. All PII encrypted with pgcrypto.</div>
+        <span class="integration-tag required">P0</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-name">AWS ca-central-1</div>
+        <div class="integration-role">Cloud · Canada</div>
+        <div class="integration-desc">Montreal region. All customer data stays in Canada. Required for PIPEDA compliance.</div>
+        <span class="integration-tag required">P0</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-name">Terraform + ECS</div>
+        <div class="integration-role">Infrastructure</div>
+        <div class="integration-desc">Docker on Fargate. Auto-scaling on job queue depth. All infra as code. No manual changes.</div>
+        <span class="integration-tag">P1</span>
+      </div>
+    </div>
+
+    <div class="rule"></div>
+
+    <h3 class="subhead">Build plan — phased to first paying customer</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-phase">Weeks 1–8 · Phase 0</div>
+        <div class="timeline-title">Before code — manual validation</div>
+        <div class="timeline-desc">Manual MVP: 5–10 businesses via CSV export + manual balance entry. Google Sheets cash flow model. Weekly email alerts manually. Charge $99/month. Document every data quality issue.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-phase">Months 1–3 · Phase 1</div>
+        <div class="timeline-title">Backend MVP</div>
+        <div class="timeline-desc">Plaid + QuickBooks + ADP integrations. Categorisation. Financial model. Detection. Alert delivery via SMS/email. First 5 paying customers in production.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-phase">Months 4–9 · Phase 2</div>
+        <div class="timeline-title">Mobile app + App Store</div>
+        <div class="timeline-desc">React Native iOS + Android. Q&amp;A chat interface. Alert history. One-tap invoice reminders. Xero integration. QuickBooks App Store listing. 20–30 paying customers.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-phase">Months 10–14 · Phase 3</div>
+        <div class="timeline-title">Restaurant vertical + scale</div>
+        <div class="timeline-desc">Toast POS integration. Restaurant-specific KPIs. Industry benchmarks. Founder Mode (runway, burn, MRR). Stripe + Shopify. SOC 2 Type II begins. CDL Vancouver application. $24K+ MRR.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============= TAB 7: MARKET ============= -->
+  <section class="tab-content" id="tab-market">
+    <div class="kicker">Market Research</div>
+    <h2 class="section-title">A real market, a real gap, <em>and a defensible path in.</em></h2>
+    <p class="section-lede">
+      Every statistic here has a source. Every claim is grounded in data collected from research papers, live reports, and direct market intelligence gathered through 2025 and 2026.
+    </p>
+
+    <h3 class="subhead">Market size — from global to beachhead</h3>
+    <div class="grid grid-4">
+      <div class="stat-card">
+        <div class="stat-num">$3.99B</div>
+        <div class="stat-label">Cash Flow Management Software market value, 2024</div>
+        <div class="stat-source">Verified Market Research · 2025</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">$9.65B</div>
+        <div class="stat-label">Projected by 2032 · 16.34% CAGR</div>
+        <div class="stat-source">Verified Market Research</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">$10B+</div>
+        <div class="stat-label">Virtual CFO market projected by 2035</div>
+        <div class="stat-source">Fortune / Mastercard · Mar 2026</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">33M</div>
+        <div class="stat-label">North American small businesses under $5M revenue, without a CFO</div>
+        <div class="stat-source">SBA · 2026</div>
+      </div>
+    </div>
+
+    <h3 class="subhead" style="margin-top: 3rem;">The Canadian market — specific</h3>
+    <div class="comp-table-wrap">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Segment</th>
+            <th># Businesses</th>
+            <th>Target %</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="feature-name">Canadian employer businesses</td>
+            <td><strong>1,083,000</strong></td>
+            <td>Top 10% ≈ 108K</td>
+            <td>Realistic TAM: 5–50 employees, regular invoicing, existing accounting software</td>
+          </tr>
+          <tr>
+            <td class="feature-name">Pre-seed / seed startups (Canada)</td>
+            <td><strong>~800</strong></td>
+            <td>All</td>
+            <td>Formed in 2025 · Each is a Founder Mode customer</td>
+          </tr>
+          <tr>
+            <td class="feature-name">Metro Vancouver SMBs</td>
+            <td><strong>~85,000</strong></td>
+            <td>Top 15% ≈ 12,750</td>
+            <td>Beachhead. Concentrated in 6–8 key areas (Commercial Drive, Kitsilano, Yaletown)</td>
+          </tr>
+          <tr>
+            <td class="feature-name">BC independent restaurants</td>
+            <td><strong>~8,000</strong></td>
+            <td>Top 30% ≈ 2,400</td>
+            <td>BCRFA member restaurants. Phase 2 vertical. High pain, harder to acquire.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="subhead" style="margin-top: 3rem;">Revenue trajectory</h3>
+    <p class="body">At a target $199/month average across customer types:</p>
+    <div class="grid grid-4">
+      <div class="stat-card">
+        <div class="stat-num">$239K</div>
+        <div class="stat-label">ARR at 100 customers (end of Year 1)</div>
+        <div class="stat-source">Validation milestone</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">$1.19M</div>
+        <div class="stat-label">ARR at 500 customers (end of Year 2)</div>
+        <div class="stat-source">Fundable for Series A</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">$5.97M</div>
+        <div class="stat-label">ARR at 2,500 customers (Year 3–4)</div>
+        <div class="stat-source">Acquisition target range</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">$23.9M</div>
+        <div class="stat-label">ARR at 10,000 customers (Year 5+)</div>
+        <div class="stat-source">FloatApp / Intuit acquisition range</div>
+      </div>
+    </div>
+
+    <h3 class="subhead" style="margin-top: 3rem;">The research evidence</h3>
+
+    <div class="research-item">
+      <div class="research-source">Statistics Canada</div>
+      <div class="research-date">Key Small Business Statistics · December 2024</div>
+      <div class="research-finding">1.08 million small businesses in Canada employing 5.8 million people — 46.6% of total private labour force. Net 74,509 businesses exited annually 2017–2021.</div>
+      <div class="research-quote">Small businesses are the backbone of Canada's economy — they employ more Canadians than all medium and large businesses combined, yet they have no CFO-level financial intelligence.</div>
+    </div>
+
+    <div class="research-item">
+      <div class="research-source">Float Financial</div>
+      <div class="research-date">Canada's Crossroads: 2025 Canadian Business Report · January 2026</div>
+      <div class="research-finding">Average Canadian business cash balances declined 4.86% in 2025. Insolvency 33% above pre-pandemic. 70% of new SMBs had difficulty accessing capital. Collateral requirements surged 43% YoY.</div>
+      <div class="research-quote">Businesses are spending down reserves to support operations while deliberately avoiding new leverage. In an uncertain economy, that caution makes sense — but it makes forward-looking cash intelligence more critical, not less.</div>
+    </div>
+
+    <div class="research-item">
+      <div class="research-source">Xero Small Business Insights · Canada</div>
+      <div class="research-date">Q3 2024 · Published February 2025</div>
+      <div class="research-finding">Canadian small business sales fell 2.5% YoY in Q3 2024. British Columbia weakest at −5.0%. Late payments worsened to 7.6+ days beyond terms.</div>
+      <div class="research-quote">Managing cash flow, building strong customer relationships, and maintaining operational efficiency — Xero's own VP — are the unchanging factors of business success. Yet Xero's product records what happened. It does not forecast what's about to happen.</div>
+    </div>
+
+    <div class="research-item">
+      <div class="research-source">The Kaplan Group</div>
+      <div class="research-date">51 Small Business Cash Flow Statistics · March 2026</div>
+      <div class="research-finding">Only 30% of small business owners finished 2025 with profitability above expectations, down from 57% in 2024. 38% of 2025 failures tied directly to inability to service debt.</div>
+      <div class="research-quote">The share of small businesses missing payroll is rising again. Within two quarters of a missed payroll, a firm's workforce shrinks by 8–10% on average.</div>
+    </div>
+
+    <div class="research-item">
+      <div class="research-source">Worldmetrics</div>
+      <div class="research-date">Business Failure Rate Statistics 2026</div>
+      <div class="research-finding">Canada's annual business failure rate is 9.8%. Ontario highest at 11%. Cash flow issues contribute to 60% of closures. Restaurant industry: 30% fail in first two years; 60% within five years.</div>
+      <div class="research-quote">The data shows that while a business can be felled by a thousand cuts, it most often bleeds to death from a cash flow wound — proving that even the best idea can't outrun an empty wallet.</div>
+    </div>
+  </section>
+
+  <!-- ============= TAB 8: COMPETITIVE ============= -->
+  <section class="tab-content" id="tab-competitive">
+    <div class="kicker">Competitive Landscape</div>
+    <h2 class="section-title">Why Pulse occupies a gap <em>no competitor currently fills.</em></h2>
+    <p class="section-lede">
+      18 competitors mapped across four categories. Zero have proactive delivery with Canadian GST/HST. Zero are Canadian-built SMB cash flow forecasting tools. The gap is real, and it is specific.
+    </p>
+
+    <div class="grid grid-4">
+      <div class="stat-card">
+        <div class="stat-num">18</div>
+        <div class="stat-label">Competitors mapped across all categories</div>
+        <div class="stat-source">May 2026 audit</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">4</div>
+        <div class="stat-label">True direct competitors (dashboard forecasting, SMB)</div>
+        <div class="stat-source">Category B</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">0</div>
+        <div class="stat-label">With proactive delivery + Canadian GST/HST</div>
+        <div class="stat-source">The gap</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">0</div>
+        <div class="stat-label">Canadian-built SMB cash flow forecasting tools</div>
+        <div class="stat-source">Category-defining</div>
+      </div>
+    </div>
+
+    <h3 class="subhead" style="margin-top: 3rem;">The four competitive categories</h3>
+    <div class="grid grid-2">
+      <div class="card">
+        <h4 class="minihead" style="margin-top:0; color: var(--muted);">Category A</h4>
+        <div class="metric-name" style="font-family: var(--display); font-size: 20px; margin-bottom: 8px;">Accounting platforms</div>
+        <p class="body" style="font-size: 14px; margin: 0;">QuickBooks, Xero, Sage 50, Wave. These record the past. Pulse is built <em>on top</em> of them. A customer uses both. <strong style="color: var(--green);">Data sources, not competitors.</strong></p>
+      </div>
+      <div class="card">
+        <h4 class="minihead" style="margin-top:0; color: var(--accent);">Category B</h4>
+        <div class="metric-name" style="font-family: var(--display); font-size: 20px; margin-bottom: 8px;">Dashboard forecasting</div>
+        <p class="body" style="font-size: 14px; margin: 0;">Float App, Dryrun, Cash Flow Frog, PlanGuru, Fathom, Futrli. All require login. All wait for the owner. All have high churn from disengagement. <strong style="color: var(--accent);">Closest competitors — same fatal flaw.</strong></p>
+      </div>
+      <div class="card">
+        <h4 class="minihead" style="margin-top:0; color: var(--gold);">Category C</h4>
+        <div class="metric-name" style="font-family: var(--display); font-size: 20px; margin-bottom: 8px;">Spend management</div>
+        <p class="body" style="font-size: 14px; margin: 0;">Float Financial Canada, Venn, Plooto. Control what you spend. Pulse predicts what you'll have. Different problem, same customer. <strong style="color: var(--gold);">Complementary, not competing.</strong></p>
+      </div>
+      <div class="card">
+        <h4 class="minihead" style="margin-top:0; color: var(--purple);">Category D</h4>
+        <div class="metric-name" style="font-family: var(--display); font-size: 20px; margin-bottom: 8px;">Human CFO services</div>
+        <p class="body" style="font-size: 14px; margin: 0;">ConnectCPA, LiveCA, boutique fractional CFO firms. $2,000–$5,000/month. <strong style="color: var(--purple);">Pulse replaces at 10–15x lower cost.</strong></p>
+      </div>
+    </div>
+
+    <h3 class="subhead" style="margin-top: 3rem;">Pulse vs. the field</h3>
+    <div class="comp-table-wrap">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Capability</th>
+            <th class="pulse-col">Pulse</th>
+            <th>Float App</th>
+            <th>QB Planner</th>
+            <th>Centime</th>
+            <th>Mastercard</th>
+            <th>Fractional CFO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="feature-name">Proactive push (no login)</td>
+            <td class="pulse-col check">✓</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td class="partial">TBD</td>
+            <td class="partial">Human</td>
+          </tr>
+          <tr>
+            <td class="feature-name">One-tap invoice reminder</td>
+            <td class="pulse-col check">✓</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td class="partial">Partial</td>
+            <td class="partial">?</td>
+            <td class="partial">Manual</td>
+          </tr>
+          <tr>
+            <td class="feature-name">Canadian GST/HST reserves</td>
+            <td class="pulse-col check">✓</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td class="partial">?</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td class="feature-name">Vertical KPIs (food cost % etc.)</td>
+            <td class="pulse-col check">✓</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td class="partial">Partial</td>
+          </tr>
+          <tr>
+            <td class="feature-name">Q&amp;A scenario modeling</td>
+            <td class="pulse-col check">✓</td>
+            <td class="partial">Limited</td>
+            <td class="cross">✗</td>
+            <td class="partial">Partial</td>
+            <td class="check">✓</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td class="feature-name">Founder Mode (runway, burn, MRR)</td>
+            <td class="pulse-col check">✓</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td class="partial">?</td>
+            <td class="partial">Partial</td>
+          </tr>
+          <tr>
+            <td class="feature-name">ADP Run (Canadian payroll)</td>
+            <td class="pulse-col check">✓</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td class="partial">?</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td class="feature-name">Price vs. fractional CFO</td>
+            <td class="pulse-col"><strong style="color: var(--green);">10x cheaper</strong></td>
+            <td>10x cheaper</td>
+            <td>Included</td>
+            <td>5x cheaper</td>
+            <td>~free</td>
+            <td>Baseline</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="subhead" style="margin-top: 3rem;">Three gaps no existing product fills</h3>
+    <div class="grid grid-3">
+      <div class="problem-card">
+        <div class="problem-num">1</div>
+        <div class="problem-title">Proactive delivery</div>
+        <p class="problem-body">Every product requires the owner to come to it. SMB owners running 70-hour weeks do not check financial dashboards. Float Financial's own research: 40% of SMBs lack a single source of financial truth. Not chosen ignorance — no product delivers intelligence to them proactively. Pulse changes the engagement model entirely.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-num">2</div>
+        <div class="problem-title">Canadian tax intelligence</div>
+        <p class="problem-body">Not one competitor — including Mastercard's virtual CFO — offers proactive GST/HST reserve management. The category was built in Edinburgh (Float), Edmonton moving upmarket (Dryrun), Australia (Fathom), and the US. All have generic tax support or none. Canada has 5% GST + 13–15% HST with quarterly deadlines that blindside SMB owners every year.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-num">3</div>
+        <div class="problem-title">Execution, not just dashboards</div>
+        <p class="problem-body">Even the best dashboard tools tell you what the forecast looks like. None of them send a message saying "You'll miss payroll in 9 days. Here's the one invoice to chase — tap to send a reminder." The gap is execution, not information. Every competitor stops at the dashboard. Pulse extends into one-tap action.</p>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      Mastercard's March 2026 announcement of an AI CFO product for small businesses is the most important market validation event for Pulse. When a $500B payment company confirms this exact market, the market is real. Their version will be generic and bank-delivered. Pulse has 18–24 months to own a specific vertical before their solution reaches saturation.
+      <span class="pull-quote-attr">Fortune / Mastercard · March 2026</span>
+    </div>
+  </section>
+
+  <!-- ============= TAB 9: PROMISES ============= -->
+  <section class="tab-content" id="tab-promises">
+    <div class="kicker">Our Promises</div>
+    <h2 class="section-title">What you can hold us to. <em>The principles we built the product on.</em></h2>
+    <p class="section-lede">
+      Every architectural decision in Pulse flows from a small set of commitments to the people who use it. These are not marketing language. They are constraints the product is built around.
+    </p>
+
+    <div class="promise-list">
+      <div class="promise">
+        <div class="promise-icon">1</div>
+        <div class="promise-text">We will <strong>never show you a number we have not verified.</strong> Every dollar figure in every alert is computed by our financial model before Claude ever sees it, and validated after Claude writes it. If we cannot verify a number, we do not send the alert.</div>
+      </div>
+      <div class="promise">
+        <div class="promise-icon">2</div>
+        <div class="promise-text">We will <strong>never store your banking credentials.</strong> Plaid handles your bank connection. We store only a secure access token. You can revoke our access at any time in three seconds.</div>
+      </div>
+      <div class="promise">
+        <div class="promise-icon">3</div>
+        <div class="promise-text">Your <strong>data never leaves Canada.</strong> All of your financial data is stored in AWS Montreal. This is not a marketing claim — it is an infrastructure decision we made on day one for PIPEDA compliance and for your peace of mind.</div>
+      </div>
+      <div class="promise">
+        <div class="promise-icon">4</div>
+        <div class="promise-text">We will <strong>tell you when our forecast is less certain.</strong> Every projection includes a confidence level. When we have less data — in your first 30 days, or after a major business change — we say so explicitly. "Estimated" means estimated. "Confirmed" means confirmed.</div>
+      </div>
+      <div class="promise">
+        <div class="promise-icon">5</div>
+        <div class="promise-text"><strong>Maximum two alerts per week.</strong> Not because we cannot detect more — but because an owner who receives seven alerts ignores all of them. We select the two most important signals and send only those. The rest wait until they become more urgent.</div>
+      </div>
+      <div class="promise">
+        <div class="promise-icon">6</div>
+        <div class="promise-text">This is <strong>financial intelligence, not financial advice.</strong> Every alert ends with: "For information only — not financial advice." Pulse tells you what the data shows. The decision is always yours. For major decisions, please consult a qualified financial professional.</div>
+      </div>
+    </div>
+
+    <h3 class="subhead" style="margin-top: 3rem;">A note on accuracy</h3>
+    <p class="body">Pulse's forecasts are as accurate as the data that feeds them. The two most common sources of inaccuracy are: accounting data that is not up to date (invoices entered late, transactions miscategorised) and bank connections that have gone stale.</p>
+    <p class="body">We actively monitor both. If your QuickBooks data is more than 48 hours stale, you receive a notification. If your Plaid connection breaks, we send a re-authentication request <em>before</em> your data goes stale — not after. Every forecast is labeled with its data freshness so you always know what you're looking at.</p>
+    <p class="body">Over time, as Pulse learns your business, forecast accuracy improves significantly.</p>
+
+    <div class="vision-card">
+      <div class="kicker">Our public accuracy target</div>
+      <h3>Cash gap predictions within <em>15%</em> of actual for <em>90%+</em> of alerts.</h3>
+      <p>We track this publicly. Every alert has a feedback mechanism — "Was this accurate?" with one tap. Wrong alerts are reviewed within 24 hours. If an alert is ever genuinely wrong, we want to know immediately.</p>
+    </div>
+
+    <h3 class="subhead">Frequently asked questions</h3>
+    <div class="grid grid-2">
+      <div class="card">
+        <h4 class="minihead" style="margin-top:0;">Is my data safe?</h4>
+        <p class="body" style="font-size: 14px; margin: 0;">Yes. Plaid handles bank connections — we never see your banking credentials. All data is stored in AWS Montreal. Everything is encrypted at rest and in transit. SOC 2 Type II compliant with annual penetration testing. You can revoke Pulse's access at any time.</p>
+      </div>
+      <div class="card">
+        <h4 class="minihead" style="margin-top:0;">What if Pulse sends a wrong alert?</h4>
+        <p class="body" style="font-size: 14px; margin: 0;">Every alert has a "Was this accurate?" feedback button. Wrong alerts are reviewed within 24 hours. The output validation layer prevents hallucinated numbers from reaching you. Accuracy is tracked publicly and improves every week.</p>
+      </div>
+      <div class="card">
+        <h4 class="minihead" style="margin-top:0;">Do I need to change my accounting?</h4>
+        <p class="body" style="font-size: 14px; margin: 0;">No. Pulse works with your existing QuickBooks or Xero setup. We read your data. We never write to it or change it. The only thing that improves accuracy is keeping your books reasonably current — which is good practice regardless.</p>
+      </div>
+      <div class="card">
+        <h4 class="minihead" style="margin-top:0;">Can my accountant use Pulse too?</h4>
+        <p class="body" style="font-size: 14px; margin: 0;">Yes. The accountant portal lets your accountant view your Pulse data — the same forecasts and alerts you see — so they can use it in advisory conversations. Particularly useful if you have a fractional CFO or tech-forward accounting firm.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============= TAB 10: TEAM & VISION ============= -->
+  <section class="tab-content" id="tab-team">
+    <div class="kicker">Section X</div>
+    <h2 class="section-title">The team. The vision. <em>Why Vancouver, first.</em></h2>
+    <p class="section-lede">
+      Where we are. Where we are going. And why we are starting where the cash flow intelligence product is most valuable.
+    </p>
+
+    <div class="card" style="padding: 2.5rem; margin-bottom: 2rem;">
+      <h4 class="minihead" style="margin-top:0;">Founder</h4>
+      <div class="metric-name" style="font-family: var(--display); font-size: 36px; margin: 8px 0 6px;">Tushar Mathur</div>
+      <p class="body" style="font-size: 15px;">Second-year Economics student at the University of British Columbia, Vancouver. Pulse was built from six months of research — interviewing small business owners, mapping the Canadian regulatory landscape, designing the financial model, and writing every specification document before a line of code was written.</p>
+
+      <h4 class="minihead">The research that built Pulse</h4>
+      <p class="body" style="font-size: 14px;">A complete market analysis with live 2025–2026 Canadian data. A technical specification covering the full database schema and six-phase data pipeline. A 15-metric KPI system with formulas and edge cases for every vertical. A partner stack analysis covering 10 external APIs and why each one was chosen. A regulatory map across PIPEDA, FINTRAC, CASL, BC PIPA, BCSC, and Canada's Consumer-Directed Banking Act. A competitive landscape covering 11 direct and indirect competitors.</p>
+
+      <h4 class="minihead">Before Pulse</h4>
+      <p class="body" style="font-size: 14px;">Business &amp; Product Analyst at ARC (pre-launch consumer startup). Research Intern at FirstLease India. Investment Banking Intern at BMA Capital. UBC Economics with a Statistics minor.</p>
+    </div>
+
+    <h3 class="subhead">Why Vancouver first</h3>
+    <p class="body large">Vancouver is one of the most expensive cities in Canada to run a small business. BC minimum wage is $17.40/hour — among the highest in Canada. Commercial rents are among the highest in North America. The restaurant and construction industries are both operating under significant margin pressure. <strong>This is exactly the environment where a cash flow intelligence product is most valuable.</strong></p>
+    <p class="body">Tight margins mean every dollar of DSO improvement matters. High fixed costs mean payroll risk alerts are genuinely urgent. The Vancouver small business community — particularly on Commercial Drive, in Kitsilano, in Yaletown, and in the Lower Mainland construction sector — is where we are starting.</p>
+    <p class="body">And Vancouver's tech ecosystem — UBC, CDL, SFU, the broader BC tech scene — provides the startup founder customer who is simultaneously running an operating business and managing investor money. <em>The crossover customer no competitor serves.</em></p>
+
+    <div class="rule"></div>
+
+    <h3 class="subhead">The Canadian advantage</h3>
+    <p class="body">Pulse is Canadian-first <em>by design</em>, not by afterthought. This means:</p>
+    <div class="grid grid-2">
+      <div class="solution-card">
+        <div class="sol-title">ADP Run (not Gusto) for payroll</div>
+        <div class="sol-body">Dominant in Canada. Ignored by US-built products. Gusto has only 1.25% Canadian market share — a common architectural mistake.</div>
+      </div>
+      <div class="solution-card">
+        <div class="sol-title">GST/HST reserve tracking</div>
+        <div class="sol-body">No competitor at the SMB level does this in Canada. Built in from day one, not bolted on later.</div>
+      </div>
+      <div class="solution-card">
+        <div class="sol-title">AWS Montreal for storage</div>
+        <div class="sol-body">Your data never leaves Canada. PIPEDA compliance is an infrastructure decision, not a checkbox.</div>
+      </div>
+      <div class="solution-card">
+        <div class="sol-title">CDBA open banking ready</div>
+        <div class="sol-body">Canada's Consumer-Directed Banking Act launches 2026 — more stable, more protected, more powerful bank connections for products like Pulse.</div>
+      </div>
+    </div>
+
+    <div class="rule"></div>
+
+    <h3 class="subhead">Where we are going</h3>
+    <p class="body large">Pulse begins with the intelligence layer — the alerts, the anomaly detection, the Q&amp;A. Once the intelligence is trusted, we add the execution layer: one-tap invoice reminders (already in the product), vendor payment scheduling, and eventually — as Canada's open banking framework matures in 2027 — direct payment initiation from inside the app.</p>
+
+    <div class="vision-card">
+      <div class="kicker">The vision</div>
+      <h3>A business owner who <em>never has to think</em> about cash flow. Not because the problem went away — but because Pulse is watching it continuously, handling what can be automated, and only surfacing what requires a human decision.</h3>
+      <p>The financial heartbeat of the business, always visible, always current, always interpreted. Pulse knows your business is healthy before you have to ask — and warns you before it isn't.</p>
+    </div>
+
+    <div class="rule"></div>
+
+    <h3 class="subhead">Closing</h3>
+    <div class="pull-quote">
+      The problem is real. The gap is documented. The solution is specific. That is enough to start.
+      <span class="pull-quote-attr">— Pulse Product Foundation · 2026</span>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============= FOOTER ============= -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-mark">Pulse — the financial heartbeat.</div>
+    <div class="footer-meta">Built in Vancouver · 2026 · Confidential</div>
+  </div>
+</footer>
+
+<!-- ============= SCRIPTS ============= -->
+<script>
+// Tab switching
+const tabs = document.querySelectorAll('.tab-btn');
+const contents = document.querySelectorAll('.tab-content');
+
+tabs.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.dataset.tab;
+    tabs.forEach(t => t.classList.remove('active'));
+    contents.forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + target).classList.add('active');
+    // Scroll to top of content area on tab change
+    window.scrollTo({ top: document.querySelector('.tab-nav-wrap').offsetTop - 1, behavior: 'smooth' });
+  });
+});
+
+// Metric sub-tab switching
+const metricTabs = document.querySelectorAll('.metric-tab');
+const metricLists = document.querySelectorAll('.metric-list');
+
+metricTabs.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.dataset.metricGroup;
+    metricTabs.forEach(t => t.classList.remove('active'));
+    metricLists.forEach(l => l.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('metrics-' + target).classList.add('active');
+  });
+});
+
+// Keyboard navigation for tabs (left/right arrows)
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const activeIdx = Array.from(tabs).findIndex(t => t.classList.contains('active'));
+  if (e.key === 'ArrowRight' && activeIdx < tabs.length - 1) {
+    tabs[activeIdx + 1].click();
+  } else if (e.key === 'ArrowLeft' && activeIdx > 0) {
+    tabs[activeIdx - 1].click();
+  }
+});
+</script>
+
+</body>
+</html>
